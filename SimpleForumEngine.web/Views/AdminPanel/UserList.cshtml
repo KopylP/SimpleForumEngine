@@ -1,0 +1,106 @@
+﻿@model IEnumerable<SimpleForumEngine.web.Models.User>
+@Html.Partial("AdminToolsPartial")
+
+<input type="text" placeholder="search" id="search"/>
+<ul id="searchlist">
+</ul>
+<div id="#useraditor">
+   
+</div>
+<table>
+    <thead>
+        <tr>
+            <th>User Name</th>
+            <th>User email</th>
+            <th>User Role</th>
+         </tr>
+    </thead>
+    @foreach(var user in Model)
+    {
+        <tr id="@user.Id">
+            <td>@user.Name</td>
+            <td>@user.Email</td>
+            <td>@user.Role.Name</td>
+            <td>
+                @using (Html.BeginForm("EditUser", "AdminPanel", FormMethod.Post))
+                {
+                    <input type="hidden" value="@user.Id" name="userId"/>
+                    <button name="action" value="delete">Delete</button>
+                    <select name="role">
+                        <option disabled selected>Select option</option>
+                        @foreach(var role in ViewBag.Roles)
+                        {
+                            <option>@role.Name</option>
+                        }
+                    </select>
+                    <button name="action" value="edit">Edit</button>
+                }
+            </td>
+        </tr>
+    }
+</table>
+<script>
+    'use strict'
+
+    $(function () {
+        let prevStr = "";
+        let chooseElement = 0;
+        $.ajaxSetup({ cache: false });
+        $("#search").on('input', function (e) {
+            let str = $('#search').val().trim();
+            if (str.length <= 2) $("#searchlist").html("");
+            else if (str.length > 2)
+            {
+                console.log(str);
+                $.ajax(
+                    {
+                        url: "@Url.Action("Search", "AdminPanel")",
+                        data: JSON.stringify({ msg: $('#search').val().toString() }),
+                        type: "POST",
+                        method: "POST",
+                        dataType: "json",
+                        contentType: "application/json; charset=utf-8",
+                        success: function (data, textStatus)
+                        {
+                            console.log(data);
+                            if (data !== prevStr) {
+                                $("#searchlist").html("");
+                                for (let i of data) {
+                                    $("#searchlist").append(`<li data-id="${i.id}">` + i.name + "  " + i.email + "</li>");
+                                    $(`[data-id="${i.id}"]`).click(function () {
+                                        $('html, body').animate({
+                                            scrollTop: $(`#${i.id}`).offset().top
+                                        }, 1000);
+                                    });
+                                }
+                                prevStr = data;
+                            }
+                            $("#searchlist li:eq(0)").css("background-color", "red");
+                            chooseElement = 0;
+                        }
+                    });
+
+            }
+
+            e.preventDefault();
+        });
+        $("#search").keydown(function (e) 
+        {
+            if ($("#searchlist li").length > 1) {
+                console.log("Uhuu");
+                if (e.keyCode == 40) {
+                    $("#searchlist li").eq(chooseElement).css("background-color", "");
+                    chooseElement = (chooseElement + 1) % $("#searchlist").children().length;
+                    $("#searchlist li").eq(chooseElement).css("background-color", "red");
+                }
+                if (e.keyCode == 38)
+                {
+                    $("#searchlist li").eq(chooseElement).css("background-color", "");
+                    chooseElement = (chooseElement - 1) < 0 ? $("#searchlist li").length - 1 : (chooseElement - 1);
+                    $("#searchlist li").eq(chooseElement).css("background-color", "red");
+                }
+            }
+        });
+    });
+
+</script>

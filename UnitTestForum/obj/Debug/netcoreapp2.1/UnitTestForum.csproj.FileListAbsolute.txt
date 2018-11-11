@@ -1,0 +1,14 @@
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTest.TestAdapter.dll
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.Interface.dll
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\bin\Debug\netcoreapp2.1\Microsoft.VisualStudio.TestPlatform.MSTestAdapter.PlatformServices.dll
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\bin\Debug\netcoreapp2.1\UnitTestForum.deps.json
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\bin\Debug\netcoreapp2.1\UnitTestForum.runtimeconfig.json
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\bin\Debug\netcoreapp2.1\UnitTestForum.runtimeconfig.dev.json
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\bin\Debug\netcoreapp2.1\UnitTestForum.dll
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\bin\Debug\netcoreapp2.1\UnitTestForum.pdb
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\obj\Debug\netcoreapp2.1\UnitTestForum.csprojResolveAssemblyReference.cache
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\obj\Debug\netcoreapp2.1\UnitTestForum.csproj.CoreCompileInputs.cache
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\obj\Debug\netcoreapp2.1\UnitTestForum.AssemblyInfoInputs.cache
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\obj\Debug\netcoreapp2.1\UnitTestForum.AssemblyInfo.cs
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\obj\Debug\netcoreapp2.1\UnitTestForum.dll
+C:\Users\Kopyl\source\repos\SimpleForumEngine.web\UnitTestForum\obj\Debug\netcoreapp2.1\UnitTestForum.pdb

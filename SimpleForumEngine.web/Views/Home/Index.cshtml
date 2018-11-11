@@ -1,0 +1,30 @@
+﻿@model IEnumerable<SimpleForumEngine.web.Models.Folder>
+@{
+    ViewBag.Title = "Index";
+}
+
+@if(User.IsInRole("admin"))
+{
+    @MyHelpers.FolderCreator(null);
+}
+<p></p>
+<div class="index-container">
+        @foreach (var m in Model)
+        {
+            <div class="folder ">
+                <a href=@Url.Content("~/Home/Folder/" + m.Id)><p>@m.Name</p></a>
+                @foreach(var folder in m.Children)
+                {
+                    <a href=@Url.Content("~/Home/Folder/" + folder.Id)><p>@folder.Name</p></a>
+                }
+                @foreach (var topic in m.Topics)
+                {
+                    <a href=@Url.Content("~/Home/Topic/" + topic.Id)><p>@topic.Name</p></a>
+                }
+            </div>
+        }
+</div>
+
+
+
+

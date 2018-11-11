@@ -1,0 +1,66 @@
+﻿@helper FolderCreator(int? ParentId)
+{
+
+    <button name="action" id="button-open">Create Folder</button>
+        <div id="folder-creator-container" class="my-container">
+            <div id="close-button" class="close-btn"></div>
+            <div id="folder-creator" class="creator">
+                <form action="~/Home/CreateFolder" method="post">
+                    <input type="text" placeholder="Name" name="Name" /><br />
+                    <input type="hidden" value=@ParentId name="ParentId" />
+                    Will folder be static?<br />
+                    <label>True<input type="radio" value="true" name="CanCreateTopicStr" checked/></label>
+                    <label>False<input type="radio" value="false" name="CanCreateTopicStr" /></label><br />
+                    <input type="submit" value="Submit" />
+                </form>
+            </div>
+        </div>
+}
+
+@helper TopicCreator(int FolderId, int UserId)
+{
+    <button name="action" id="m-button-open">Create Topic</button>
+    <div id="message-creator-container" class="my-container">
+        <div id="m-close-button" class="close-btn"></div>
+        <div id="message-creator" class="creator">
+            <form action="/TopicHandler/CreateTopic" method="post">
+                <input type="text" placeholder="Name" name="Name" /><br />
+                <input type="hidden" value="@FolderId" name="FolderId" />
+                @if (User.IsInRole("editor") || User.IsInRole("admin"))
+                {
+                    <p>Can users write messages?</p>
+                    <label>Yes<input type="radio" name="IsMessagingStr" value=@true checked="checked"/></label>
+                    <label>No<input type="radio" name="IsMessagingStr" value=@false/></label>
+                }
+                else
+                {
+                    <input type="hidden" name="IsMessaging" value=@true/>
+                }
+                <textarea name="Content"></textarea>
+                <input type="hidden" name="UserId" value="@UserId"/>
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+}
+
+@helper EditTopic(int Id, int FolderId, int UserId, string name, string content)
+{
+    <button id="open-edit">Edit</button>
+    <div id="topic-editor-container" class="my-container">
+        <div id="e-close-button" class="close-btn"></div>
+        <div id="topic-editor" class="creator">
+            <form action="/TopicHandler/EditTopic" method="post">
+                <input type="text" placeholder="Name" name="Name"  value="@name"/><br />
+                <input type="hidden" value="@FolderId" name="FolderId" />
+                <p>Can users write messages?</p>
+                <label>Yes<input type="radio" name="IsMessagingStr" value="true" checked="checked"/></label>
+                <label>No<input type="radio" name="IsMessagingStr" value="false" /></label>
+                <textarea name="Content">@content</textarea>
+                <input type="hidden" name="UserId" value="@UserId" />
+                <input type="hidden" name="Id" value="@Id" />
+                <input type="submit" value="Submit" />
+            </form>
+        </div>
+    </div>
+}

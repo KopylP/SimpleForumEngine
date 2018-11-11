@@ -1,0 +1,22 @@
+﻿@model SimpleForumEngine.web.Models.Folder
+@{
+    ViewBag.Title = "Folder";
+}
+@if(User.IsInRole("admin"))
+{
+    @MyHelpers.FolderCreator(Model.Id);
+}
+@if((User.Identity.IsAuthenticated && Model.CanCreateTopic) || (User.IsInRole("editor")||User.IsInRole("admin")))
+{
+    @MyHelpers.TopicCreator(Model.Id, ViewBag.UserId);
+}
+<h2>Folder @Model.Name</h2>
+@foreach (var folder in Model.Children)
+{
+    <a href=@Url.Content("~/Home/Folder/" + folder.Id)><p>@folder.Name</p></a>
+}
+@foreach (var topic in Model.Topics)
+            {
+    <a href=@Url.Content("~/Home/Topic/" + topic.Id)><p>@topic.Name</p></a>
+}
+

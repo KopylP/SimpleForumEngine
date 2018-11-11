@@ -1,0 +1,57 @@
+﻿@model SimpleForumEngine.web.Models.Topic
+
+@{
+    ViewBag.Title = "Topic";
+}
+
+<h2>Topic @Model.Name</h2>
+<section>
+    @if (User.IsInRole("admin") || User.IsInRole("editor"))
+    {
+        @MyHelpers.EditTopic(Model.Id, Model.FolderId, Model.UserId, Model.Name, Model.Content)
+    }
+    @Model.Content
+</section>
+<p>Messages:</p>
+@foreach (var message in ViewBag.Messages)
+{
+    if (User.IsInRole("admin") || User.IsInRole("editor") || message.User.Email == User.Identity.Name)
+    {
+        <form method="post" action="/MessageHandler/DeleteMessage">
+            <input type="hidden" name="messageId" value="@message.Id">
+            <input type="submit" value="Delete" />
+        </form>
+
+    }
+    <p>@message.User.Name</p>
+    <p>@String.Format("{0:D}", message.Date)</p>
+    <p>@message.Content</p>
+    foreach (var file in message.MessageFiles)
+    {
+        if (file.IsPhoto)
+        {
+        <img src="~/Files/Photo/@String.Format("{0}_small{1}", file.Name, file.Extension)" width="100" height="100">
+        }
+    }
+    <br/>
+    foreach (var file in message.MessageFiles)
+    {
+        if (!file.IsPhoto)
+        {
+            <a href="~/Files/UserFiles/@file.Path" width="100" height="100">@file.OriginalName</a>
+        }
+    }
+}
+@if(User.Identity.IsAuthenticated && Model.IsMessaging)
+{
+    <form method="post" action="/MessageHandler/SendMessage" enctype="multipart/form-data">
+        <input type="hidden" name="Author" value="@User.Identity.Name">
+        <input type="hidden" name="TopicId" value="@Model.Id">
+        <textarea id="messageArea" placeholder="Enter your message" name="Content"></textarea><br/>
+        <input type="file" name="Photos" multiple accept="image/*"><br/>
+        <input type="file" name="Files" multiple /><br/>
+        <input type="submit" id="sendButton" value="submit">
+    </form>
+}
+@Scripts.Render("~/Scripts/TopicEditor.js")
+
